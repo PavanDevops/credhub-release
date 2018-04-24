@@ -3,5 +3,7 @@
 set -u
 
 export PATH=/var/vcap/bosh/bin:/var/vcap/jobs/credhub/bin:$PATH
-curl "$(credhub api)/management" -X POST -d '{"read_only_mode":"false"}' -H "Authorization: $(credhub --token)" -H 'content-type: application/json' -k
+<% port = p('credhub.port') %>
+
+curl "https://localhost:<%= port %>/management" -X POST -d '{"read_only_mode":"false"}' -H 'content-type: application/json' -k
 exec /var/vcap/jobs/credhub/bin/bbr/post-bbr-start
